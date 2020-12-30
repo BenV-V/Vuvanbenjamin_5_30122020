@@ -1,0 +1,33 @@
+.container img {
+  height: 350px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center center;
+     object-position: center center;
+}
+
+.bg {
+  margin: 3px 0 3px 0;
+  -webkit-box-shadow: 3px 3px #B16D9E, -3px -3px #D07F45;
+          box-shadow: 3px 3px #B16D9E, -3px -3px #D07F45;
+  border-top: 3px solid #D07F45;
+  border-bottom: 3px solid #B16D9E;
+  background-color: #F1E9F0;
+}
+
+.bg .navbar-brand img {
+  padding-right: 20px;
+  width: 15%;
+  height: 15%;
+}
+
+.bg li {
+  padding-left: 50px;
+}
+
+.bg-light {
+  border-top: 3px solid #8F5BFE;
+  -webkit-box-shadow: -3px -3px #B16D9E;
+          box-shadow: -3px -3px #B16D9E;
+}
+/*# sourceMappingURL=style.css.map */

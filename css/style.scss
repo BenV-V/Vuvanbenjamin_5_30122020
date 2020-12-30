@@ -1,0 +1,29 @@
+.container{
+    img{
+        height: 350px;
+        object-fit: cover;
+        object-position: center center;
+    }
+}
+.bg{
+    margin: 3px 0 3px 0;
+    box-shadow: 3px 3px #B16D9E, -3px -3px #D07F45;
+    border-top: 3px solid #D07F45;
+    border-bottom: 3px solid #B16D9E;
+    background-color: #F1E9F0;
+    .navbar-brand{    
+        img{
+            padding-right: 20px;
+            width: 15%;
+            height: 15%;
+        }
+    }
+    li{
+        padding-left: 50px;
+    }
+}
+.bg-light{
+    border-top: 3px solid #8F5BFE;
+    box-shadow: -3px -3px #B16D9E;
+}
+
