@@ -7,9 +7,9 @@ fetch('http://localhost:3000/api/cameras')
     html += ` <div class="card">
                 <img src="${response[i].imageUrl}" class="card-img-top" alt="Images cameras">
                 <div class="card-body">
-                  <h5 class="card-title">${response[i].name}</h5>
+                  <h3 class="card-title">${response[i].name}</h3>
                   <p class="card-text">${response[i].description}</p>
-                  <p class="row">Prix : ${(response[i].price/100).toFixed(2).replace(".",",")}€</p>
+                  <p class="row">Prix : ${(response[i].price/100)} €</p>
                   <a href="./produit.html?${response[i]._id}" class="btn btn-primary stretched-link">Voir l'article</a>
                 </div>
               </div>`
