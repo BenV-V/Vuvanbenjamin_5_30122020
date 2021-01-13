@@ -1,95 +1,74 @@
-const camera = window.location.search.substring(1); 
 let html="";
-let select = document.querySelector(".choice");
-let carts = document.querySelector(".cart");
-
 //recherche du produit
-fetch(`http://localhost:3000/api/cameras/${camera}`)
-    .then((response) => response.json())
-    .then(response => {     
+fetch(`http://localhost:3000/api/cameras/${location.search.substring(1)}`)
+    .then(response => {return response.json()})
+    .then((response) => {     
 // intégration dans le HTML
-    html += `<h3 class="row">${response.name}</h3>
-        <p class="row"><img src="${response.imageUrl}" alt="cameras"></p>
-        <p class="row">${response.description}</p>
-        <p class="row"><b>Prix: ${(response.price/100)} €</b></p>`
-        
+    html += `
+            <div class="card">
+                <h3 class="card-title">${response.name}</h3>        
+                <img src="${response.imageUrl}" class="card-img-top" alt="Images cameras">
+                <div class="card-body">
+                    <p class="card-text">${response.description}</p>
+                    <p class="row">Prix : ${(response.price/100)} €</p>
+                    <label for="lense-select">Choix de la lentille :</label>
+                    <select name="lenses" id="lense-select"></select>
+                    <button class="add" >Ajouter</button>
+                </div>
+            </div>
+            `      
     document.getElementById("details").innerHTML = html;
+
 // recherche de l'option lentille
-    response.lenses.forEach (function (lenses) {
-        let choicelense = document.createElement("option");
-        select.appendChild(choicelense);
-        choicelense.textContent = lenses;
-        
-    })   
+    const select = document.querySelector('#lense-select');
+    for (let i = 0; i < response.lenses.length; i++) {
+    let option = document.createElement('option');
+    option.innerHTML = response.lenses[i];
+    select.appendChild(option);
+}
+    
 //évenement pour rajouter au panier
-    carts.addEventListener('click', () => {
-        cartNumbers(response);
-        totalCost(response)
+    document.querySelector(".add").addEventListener('click', (event) => {
+        event.preventDefault();
+        response.selectLenses = select.options[select.selectedIndex].innerHTML;
+        cart(response);
     })
-//fonction mettant le panier au même niveau que le local storage
-function onLoadCartNumbers() {
-    let productNumbers = localStorage.getItem('cartNumbers');
-    if(productNumbers) {
-        document.querySelector('.nav-link span').textContent = productNumbers;
-    } 
-}
-//fonction faisant évoluer le panier en temps réel et convertit en nombre
-function cartNumbers(response) {
-    let productNumbers = localStorage.getItem('cartNumbers');
-    productNumbers = parseInt(productNumbers);
-
-    if( productNumbers ){
-        localStorage.setItem('cartNumbers' , productNumbers + 1);  
-        document.querySelector('.nav-link span').textContent = productNumbers + 1;          
-    } else {
-        localStorage.setItem('cartNumbers' , 1);
-        document.querySelector('.nav-link span').textContent = 1;
-    }
-
-    setItems(response);
-}
-// fonction permettant de mettre plusieurs élements dans le panier (logiquement)
-    function setItems(response){
-        let cartItems = localStorage.getItem('productsInCart');
-        cartItems = JSON.parse(cartItems);
-        console.log("Mon appareil photo choisi est : ", cartItems);
-
-        if(cartItems != null){
-            
-            if(cartItems[response.name] == undefined){
-                cartItems = {
-                    ...cartItems,
-                    [response.name]: response
-                }
-            }
-
-        } else{
-            cartItems = {
-                [response.name]: response
-            }
-        }
-        cartItems = {
-            [response.name]: response
-        }
-        localStorage.setItem("productsInCart", JSON.stringify (cartItems));
-    }
-// création de cout total
-function totalCost(response){
-    let cartCost = localStorage.getItem('Coût total');
-
-// addition du prix au rajout de produit 
-    if(cartCost != null){
-        cartCost = parseInt(cartCost);
-        localStorage.setItem("Coût total", cartCost + response.price/100);
-    }else
-        localStorage.setItem("Coût total", response.price/100);
-}
-function displayCart(){
-    let cartItems = localStorage.getItem("productsInCart");
-    cartItems = JSON.parse(cartItems);
-
-    console.log(cartItems);
-}
-onLoadCartNumbers()
-displayCart();
 })
+
+// Fonction pour ajouter au panier
+function cart (item) {
+let cartElement = []
+let sessionElement = {
+    image: item.imageUrl,
+    name: item.name,
+    price: item.price,
+    quantity: 1,
+    _id: item._id,
+    lenses: item.selectLenses
+}
+let otherElement = true;
+const cart = sessionStorage.getItem('camera choisie')
+
+// Créer un tableau dans sessionStorage si vide avec élément
+if (cart === null) {
+    cartElement.push(sessionElement);
+    sessionStorage.setItem('camera choisie', JSON.stringify(cartElement));
+} 
+    // Ou récupère le tableau du sessionStorage et ajoute le nouveau produit
+    else { 
+        cartElement = JSON.parse(cart);
+
+        cartElement.forEach((product) => {
+            if (item._id === product._id && item.selectLenses === product.lenses) {
+                product.quantity++;
+                otherElement = false;
+            }
+        })
+
+if (otherElement) cartElement.push(sessionElement);
+sessionStorage.setItem('camera choisie', JSON.stringify(cartElement));
+}
+
+alert("La caméra a été ajoutée au panier");
+}
+

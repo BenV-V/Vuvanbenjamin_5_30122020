@@ -1,9 +1,9 @@
 let html = "";
-
+// récupération de l'API
 fetch('http://localhost:3000/api/cameras')
     .then(response => {return response.json()})
     .then((response) => {for(let i = 0; i < response.length; i++) {
-
+// intégration dans le HTML
     html += ` <div class="card">
                 <img src="${response[i].imageUrl}" class="card-img-top" alt="Images cameras">
                 <div class="card-body">
@@ -14,5 +14,7 @@ fetch('http://localhost:3000/api/cameras')
                 </div>
               </div>`
     }   
+// intégration dans le fichier index.html
     document.getElementById("cameras").innerHTML = html
 })
+
