@@ -73,8 +73,10 @@ body {
         color:black;
         padding:5px;
         width: 40%; 
-        &:hover{transform: scale(1.05);transition: transform 300ms}
-        
+        &:hover{
+            transform: scale(1.05);
+            transition: transform 300ms
+        }
     }
 }
 .cartdetails{
@@ -83,36 +85,43 @@ body {
     }    
 }
 .shopping_cart{
-#cart{
-    h3{
-        margin-top: 10px;
-        text-decoration: underline black;
-    }
-    .contactform{  
-        margin-top: 10px;
-        margin-left: auto;
-        margin-right: auto;
-        width: 80%;
-        margin-bottom: 20px;
-        padding: auto;
-        span{
-            color:red;
+    min-height: 900px;
+    #cart{
+        h3{
+            margin-top: 100px;
+            margin-bottom: 50px;
+            text-decoration: underline black;
+        }
+        .contactform{  
+            margin-top: 10px;
+            margin-left: auto;
+            margin-right: auto;
+            width: 80%;
+            margin-bottom: 20px;
+            padding: auto;
+            span{
+                color:red;
+            }
+            .validate, .reset{
+                margin-top: 20px;
+                padding: 8px;
+                margin-right: 20px;
+                border-radius: 20px;
+                background-color: #B16D9E;    
+            }
+        }
+        .cancel{
+            margin-left: 40px;
+            padding: 8px;
+            border-radius: 20px;
+            background-color: #B16D9E;
+        }
+        strong{
+            margin-left: 10px;
+            position: right;
+            font-size: 1.5em;
         }
     }
-    .cancel{
-        margin-left: 40px;
-        padding: 8px;
-        border-radius: 20px;
-        background-color: #B16D9E;
-    }
-    strong{
-        margin-left: 10px;
-        position: right;
-
-        font-size: 1.5em;
-    border: 1px solid red;
-}
-}
 }
 @media screen and (min-width: 1200px){
     #cameras{
@@ -120,7 +129,15 @@ body {
         .card{
             width: 20%;
             margin: 5px;
-            a{width: 100%;}
+            a
+            {width: 100%;
+            background-color:#B16D9E;  
+            border-radius:20px;
+            outline: none!important;
+            border: none;
+            color:black;
+            padding:5px;
+            }
         }
     }
 }
@@ -146,8 +163,18 @@ body {
     } 
 }
 #confirmation{
-    background: linear-gradient(to top left,#8F5BFE,#D07F45);
     height: 900px;
     margin: auto;
     padding: auto;
+}
+.confirmorder{
+    background: linear-gradient(to top left,#8F5BFE,#D07F45);
+    margin: 50px 50px 50px 50px;
+    border-radius: 30px;
+    padding:20px;
+    box-shadow: 10px 10px grey;
+    h2{
+    text-decoration: underline black;
+    }
+
 }

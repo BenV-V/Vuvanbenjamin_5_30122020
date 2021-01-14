@@ -1,14 +1,12 @@
 const contact = JSON.parse(sessionStorage.getItem("contact"));
-const orderId = JSON.parse(sessionStorage.getItem("order_Id"));
-const total = JSON.parse(sessionStorage.getItem('total'));
 let html ="";
-
-html +=`
+    html +=`
         <div class ="confirmorder">
             <h2>Confirmation de la commande</h2>
-            <p style="color: black;">
-            Merci pour votre commande <strong>${contact.firstName} ${contact.lastName} </strong> !<br>Votre commande <strong>n°${orderId}</strong> <br>d'un montant de <strong>${(total/100)}€ vous sera envoyée prochainement !</strong>
-            <br> A bientôt sur <strong>Oricocam<s/trong> !</p>
+            <p>Merci pour votre commande <strong>${contact.firstName} ${contact.lastName} </strong> !<br>
+            Votre commande <strong>n°${JSON.parse(sessionStorage.getItem("order_Id"))}</strong> 
+            <br>d'un montant de <strong>${(JSON.parse(sessionStorage.getItem('total'))/100)}€</strong> vous sera envoyée prochainement !
+            <br>A bientôt sur <strong>Oricocam</strong> !</p>
         </div>
         `
     document.querySelector("#confirmation").innerHTML = html;

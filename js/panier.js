@@ -6,8 +6,7 @@ display()
 function display() {
     if (window.sessionStorage.getItem('camera choisie') !== null) {
         let items = JSON.parse(cart);
-        total = 0; 
-
+        total = 0
         totalCart.insertAdjacentHTML("afterbegin",
             `<h1>Panier</h1>
             <table class="table">
@@ -27,20 +26,20 @@ function display() {
         
         let html = "";
         // Affichage des articles + prix + quantité
-        items.forEach( (product) => {
-            
-            total = total + (product.price * product.quantity);
+        items.forEach( (item) => {
+            total = total + (item.price * item.quantity);
 
             html +=`<tr>
-                        <td class="cameraimg"><img src="${product.image}" alt="camera"></td>
-                        <td class="cameraname">${product.name}</td>
-                        <td class="lensecamera">${product.lenses}</td>
-                        <td class="cameraquantity">${product.quantity}</td>
-                        <td class="cameraprice">${(product.price/100 * product.quantity)}€</td>
+                        <td class="cameraimg"><img src="${item.image}" alt="camera"></td>
+                        <td class="cameraname">${item.name}</td>
+                        <td class="lensecamera">${item.lenses}</td>
+                        <td class="cameraquantity">${item.quantity}</td>
+                        <td class="cameraprice">${(item.price/100 * item.quantity)}€</td>
                     </tr>            
                     `
             document.querySelector(".cartdetails").innerHTML = html;
         })
+        
         // Affichage du total et du bouton annuler
         totalCart.insertAdjacentHTML("beforeend",
         `<tfoot class="total">
@@ -73,27 +72,16 @@ function display() {
                         </tr>                        
                         <tr>
                             <td><label>Votre adresse e-mail <span class="required">*</span></label></td>
-                            <td><input type="email" name="email" id="email" placeholder="Merci de renseigner une adresse valide: spielberg@wanadoo.com" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+[.][a-z]{2,4}" size="30" required/></td>
+                            <td><input type="email" name="email" id="email" placeholder="Merci de renseigner une adresse valide" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+[.][a-z]{2,4}" size="37" required/></td>
                         </tr>
                         <tr>
                             <td></td>
-                            <td><input type="submit" value="Valider votre commande" class="validate" id="submit"><input type="reset" value="Réinitialiser"> </td>
+                            <td><input type="submit" value="Valider votre commande" class="validate" id="submit"><input type="reset" class="reset" value="Réinitialiser"> </td>
                         </tr>
                     </table>
                 </form>
             `
         );
-        //Annulation
-        const cancel = document.querySelector(".cancel");
-        cancel.addEventListener('click', () => {
-            cancelOrder();
-        });
-        //validation formulaire
-        const form = document.querySelector(".contactform");
-        form.addEventListener('submit', event => {
-            event.preventDefault();
-            send();
-        });
 
         //Sinon, Panier vide
     } else {
@@ -106,12 +94,23 @@ function display() {
     }
 }
 //Annulation du panier
+
+const cancel = document.querySelector(".cancel");
+    cancel.addEventListener('click', () => {
+        cancelOrder();
+});
 function cancelOrder() {
     sessionStorage.clear()
     totalCart.innerHTML = "";
     display();
 }
 
+//validation formulaire
+const form = document.querySelector(".contactform");
+    form.addEventListener('submit', event => {
+    event.preventDefault();
+    send();
+});
 //fonction qui reprend les éléments du contact et du produit
 function send() {
     let contact = {
@@ -126,8 +125,8 @@ function send() {
     if (cart !== null) {
         let productTab = JSON.parse(cart);
         
-        productTab.forEach( product => {
-            products.push(product._id);
+        productTab.forEach( item => {
+            products.push(item._id);
         })
     }
     
