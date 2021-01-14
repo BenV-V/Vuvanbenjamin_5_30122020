@@ -42,6 +42,7 @@ body {
 
 .bg li {
   padding-left: 50px;
+  text-align: center;
 }
 
 .bg-light {
@@ -75,13 +76,61 @@ body {
      object-position: center 100%;
 }
 
-.card a {
+.card button {
   background-color: #B16D9E;
   margin: auto;
-  border-radius: 15px;
+  margin-left: 20px;
+  border-radius: 20px;
+  outline: none !important;
   color: black;
-  padding: 10px;
+  padding: 5px;
   width: 40%;
+}
+
+.card button:hover {
+  -webkit-transform: scale(1.05);
+          transform: scale(1.05);
+  -webkit-transition: -webkit-transform 300ms;
+  transition: -webkit-transform 300ms;
+  transition: transform 300ms;
+  transition: transform 300ms, -webkit-transform 300ms;
+}
+
+.cartdetails img {
+  width: 70px;
+}
+
+.shopping_cart #cart h3 {
+  margin-top: 10px;
+  -webkit-text-decoration: underline black;
+          text-decoration: underline black;
+}
+
+.shopping_cart #cart .contactform {
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+  margin-bottom: 20px;
+  padding: auto;
+}
+
+.shopping_cart #cart .contactform span {
+  color: red;
+}
+
+.shopping_cart #cart .cancel {
+  margin-left: 40px;
+  padding: 8px;
+  border-radius: 20px;
+  background-color: #B16D9E;
+}
+
+.shopping_cart #cart strong {
+  margin-left: 10px;
+  position: right;
+  font-size: 1.5em;
+  border: 1px solid red;
 }
 
 @media screen and (min-width: 1200px) {
@@ -114,8 +163,14 @@ body {
   padding: 20px;
 }
 
+#details h3, #details p {
+  margin-left: 10px;
+}
+
 #details img {
-  width: 80%;
+  width: 60%;
+  height: 100%;
+  margin-left: -10px;
   margin: 0 auto;
 }
 
@@ -123,5 +178,26 @@ body {
   margin: 0 auto;
   padding: 0 auto;
   width: 50%;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.box select {
+  padding: 5px;
+  margin-right: 10px;
+}
+
+.box button {
+  padding: 8px;
+  border-radius: 5px;
+  background-color: #B16D9E;
+}
+
+#confirmation {
+  background: -webkit-gradient(linear, right bottom, left top, from(#8F5BFE), to(#D07F45));
+  background: linear-gradient(to top left, #8F5BFE, #D07F45);
+  height: 900px;
+  margin: auto;
+  padding: auto;
 }
 /*# sourceMappingURL=style.css.map */
