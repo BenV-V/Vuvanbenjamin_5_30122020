@@ -1,5 +1,5 @@
 let html="";
-//recherche du produit
+//recherche du produit avec substring
 fetch(`http://localhost:3000/api/cameras/${location.search.substring(1)}`)
     .then(response => {return response.json()})
     .then((response) => {     
@@ -22,21 +22,25 @@ fetch(`http://localhost:3000/api/cameras/${location.search.substring(1)}`)
 // recherche de l'option lentille
     const select = document.querySelector('#lense-select');
     for (let i = 0; i < response.lenses.length; i++) {
+        //pour chaque réponse de lentille, rajout dans l'élément créé intégré dans #lense-select
     let option = document.createElement('option');
     option.innerHTML = response.lenses[i];
+    // option est l'élément enfant de select
     select.appendChild(option);
 }
     
 //évenement pour rajouter au panier
     document.querySelector(".add").addEventListener('click', (event) => {
         event.preventDefault();
-        response.selectLenses = select.options[select.selectedIndex].innerHTML;
+        //Permet de récupérer le texte de l'option
+        response.selectLenses = select[select.selectedIndex].innerHTML;
         cart(response);
     })
 })
 
 // Fonction pour ajouter au panier
 function cart (item) {
+// créer un tableau qui sera alimenté par les éléments récupéres dans sessionStorage
 let cartElement = []
 let sessionElement = {
     image: item.imageUrl,
@@ -46,6 +50,7 @@ let sessionElement = {
     _id: item._id,
     lenses: item.selectLenses
 }
+//Valeur boolean true pour variable autre élément 
 let otherElement = true;
 const cart = sessionStorage.getItem('camera choisie')
 
@@ -58,17 +63,19 @@ if (cart === null) {
     else { 
         cartElement = JSON.parse(cart);
 
-        cartElement.forEach((product) => {
-            if (item._id === product._id && item.selectLenses === product.lenses) {
-                product.quantity++;
+        cartElement.forEach((element) => {
+            //si l'id du produit et le même que celui selectionné, idem pour la lentille, augmente la quantité
+            if (item._id === element._id && item.selectLenses === element.lenses) {
+                element.quantity++;
+                //cela ne correspond pas à un autre élément
                 otherElement = false;
             }
         })
-
+// sinon, autre élément qui est à rajouter au tableau
 if (otherElement) cartElement.push(sessionElement);
 sessionStorage.setItem('camera choisie', JSON.stringify(cartElement));
 }
-
+//ajoute une alerte
 alert("La caméra a été ajoutée au panier");
 }
 

@@ -1,3 +1,4 @@
+// récupération des élément contact et récupération des éléments total et order dans le HTML
 const contact = JSON.parse(sessionStorage.getItem("contact"));
 let html ="";
     html +=`
@@ -10,5 +11,5 @@ let html ="";
         </div>
         `
     document.querySelector("#confirmation").innerHTML = html;
-
+// vidage de sessionStorage
 sessionStorage.clear()

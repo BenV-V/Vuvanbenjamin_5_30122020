@@ -4,6 +4,7 @@ display()
 
 // fonction panier et contenu du panier
 function display() {
+    //Si panier strictement différent de null (donc vide), création d'un tableau avec un total de base de 0
     if (window.sessionStorage.getItem('camera choisie') !== null) {
         let items = JSON.parse(cart);
         total = 0
@@ -25,7 +26,7 @@ function display() {
         );
         
         let html = "";
-        // Affichage des articles + prix + quantité
+        // Pour chaque caméra différente ou avec lentille différente, rajout dans le tableau
         items.forEach( (item) => {
             total = total + (item.price * item.quantity);
 
@@ -48,7 +49,7 @@ function display() {
         </tfoot> 
         `
     );
-        // Formulaire de contact
+        // ajout du formulaire de contact
         totalCart.insertAdjacentHTML("beforeend",
             `<h3>Merci de remplir le formulaire ci-dessous :</h3>
                 <form name="Form" class="contactform" type="submit" method="post">
@@ -83,7 +84,7 @@ function display() {
             `
         );
 
-        //Sinon, Panier vide
+//Sinon, ajout de l'HTML relatif au panier vide
     } else {
         totalCart.insertAdjacentHTML("afterend",
             `<h2>Panier</h2>
@@ -93,8 +94,7 @@ function display() {
         )
     }
 }
-//Annulation du panier
-
+//Ecoute de l'élement et fonction annulation du panier
 const cancel = document.querySelector(".cancel");
     cancel.addEventListener('click', () => {
         cancelOrder();
@@ -104,8 +104,7 @@ function cancelOrder() {
     totalCart.innerHTML = "";
     display();
 }
-
-//validation formulaire
+//Ecoute de l'élement et fonction validation formulaire
 const form = document.querySelector(".contactform");
     form.addEventListener('submit', event => {
     event.preventDefault();
@@ -113,46 +112,31 @@ const form = document.querySelector(".contactform");
 });
 //fonction qui reprend les éléments du contact et du produit
 function send() {
-    let contact = {
-        firstName: document.getElementById("firstname").value,
-        lastName: document.getElementById("lastname").value,
-        address: document.getElementById("address").value,
-        city: document.getElementById("city").value,
-        email: document.getElementById("email").value
-    };
+    let products = []; 
+    let lastName = document.getElementById("lastname").value;
+    let firstName = document.getElementById("firstname").value;
+    let address = document.getElementById("address").value;
+    let city = document.getElementById("city").value;
+    let email = document.getElementById("email").value
 
-    let products = [];
-    if (cart !== null) {
-        let productTab = JSON.parse(cart);
-        
-        productTab.forEach( item => {
-            products.push(item._id);
-        })
-    }
+// Objet contact
+    let contact = {lastName,firstName,address,city,email};
     
-    let send = JSON.stringify({
-        contact, products
-    })
-    sendOrder(send);
-};
-
-//Envoi  la page "confirmation"
-function sendOrder(send) {
     fetch("http://localhost:3000/api/cameras/order", {
+// définition de la méthode utilisée par la requête
         method: "POST",
-        body: send,
-        headers: {
-          "Content-Type": "application/json"
-        },    
+// définition du corps qu’on souhaite ajouter à notre requête
+        body: (JSON.stringify({contact, products})),
+// les en-têtes qu’on souhaite ajouter à notre requête 
+        headers: {"Content-Type": "application/json"},    
     })
+    .then(response => {return response.json();})
     .then(response => {
-        return response.json();
-
-    }).then( response => {
+// stocke les données contact, order et total dans sessionStorage, puis transfère vers page de confirmation
         sessionStorage.setItem('contact', JSON.stringify(response.contact));
         sessionStorage.setItem('order_Id', JSON.stringify(response.orderId));
         sessionStorage.setItem('total', JSON.stringify(total));
-        window.location.replace("./confirmation.html");
+        window.location.href = "confirmation.html";
     })
 
 }
