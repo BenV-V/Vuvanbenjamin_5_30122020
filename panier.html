@@ -1,66 +1,97 @@
 <!DOCTYPE html>
 <html lang="fr">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="">
-        <link rel="stylesheet" href="font-awesome-4.7.0/css/all.css" >
-        <link rel="stylesheet" href="./css/style.css"/>
-        <link   rel="stylesheet"   href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-        <title>Orinocam | Panier</title>
-    </head>
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="description" content="">
+      <link rel="stylesheet" href="font-awesome-4.7.0/css/all.css" >
+      <link rel="stylesheet" href="./css/style.css"/>
+      <link   rel="stylesheet"   href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+      <title>Orinocam | Panier</title>
+  </head>
 
-    <body id="body">
-        <div class="bg">
-            <div class="container">
-                <div class="row">
-                  <nav class="col navbar navbar-expand-lg navbar-light">
-                    <a class="navbar-brand col-8" href="index.html"><img src="./images/logo.png" width="40" height="30" alt="Site logo">Oricocam</a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-expanded="false" aria-label="Toggle navigation">
-                      <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div id="navbarContent" class="collapse navbar-collapse">
-                      <ul class="navbar-nav">
-                        <li class="nav-item">
-                          <a class="nav-link" href="#">A propos de nous</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" href="./panier.html">Mon panier<i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
-                        </li>
-                      </ul>
-                    </div>
-                  </nav>
-                </div>
-              </div>
-        </div>
-        <main>
-          <div class="shopping_cart">
-              <div id="cart">
-              </div>
-              
-          </div>    
-      </main>
-
-        <div class="bg-light">
-            <div class="container">
-              <div class="row">
-                <div class="col">
-                  <ul class="list-inline text-center">
-                    <li class="list-inline-item"><a href="#">À propos</a></li>
-                    <li class="list-inline-item">&middot;</li>
-                    <li class="list-inline-item"><a href="#">Mentions légales</a></li>
-                    <li class="list-inline-item">&middot;</li>
-                    <li class="list-inline-item"><a href="#">Conditions d'utilisations</a></li>
+  <body id="body">
+    <div class="bg">
+        <div class="container">
+            <div class="row">
+              <nav class="col navbar navbar-expand-lg navbar-light">
+                <a class="navbar-brand col-8" href="index.html"><img src="./images/logo.png" width="40" height="30" alt="Site logo">Oricocam</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+                <div id="navbarContent" class="collapse navbar-collapse">
+                  <ul class="navbar-nav">
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">A propos de nous</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="./panier.html">Mon panier<i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
+                    </li>
                   </ul>
                 </div>
-              </div>
+              </nav>
             </div>
+        </div>
+    </div>
+    <main>
+      <div class="shopping_cart">
+          <div id="cart">
           </div>
+          <div id="content" class="d-none">
+            <h3>Merci de remplir le formulaire ci-dessous :</h3>
+            <form name="Form" class="contactform" type="submit" method="post" action ="./confirmation.html">
+                <table class="form-style">
+                    <tr>
+                        <td><label for="lastname">Votre nom <span class="required">*</span></label></td>
+                        <td><input type="text" name="lastname" id="lastname" placeholder="Spielberg" maxlength="12" pattern="[a-zA-ZÀ-ÿ0-9_ ]{2,10}" required />
+                            <span class="error" id="errorname"></span></td>
+                    </tr>
+                    <tr>
+                        <td><label for="firstname">Votre prénom <span class="required">*</span></label></td>
+                        <td><input type="text" name="firstname" id="firstname" placeholder="Steven" maxlength="12" pattern="[a-zA-ZÀ-ÿ0-9_ ]{2,10}" required /></td>
+                    </tr>
+                    <tr>
+                        <td><label for="Address">Votre adresse <span class="required">*</span></label></td>
+                        <td><input type="text" name="adress" id="address" placeholder="100 rue de Hollywood" maxlength="40" required /></td>
+                    </tr>
+                    <tr>
+                        <td><label for="city">Code postal et ville <span class="required">*</span></label></td>
+                        <td><input type="text" name="city" id="city" placeholder="5175 Los Angeles" maxlength="40" required /></td>
+                    </tr>                        
+                    <tr>
+                        <td><label>Votre adresse e-mail <span class="required">*</span></label></td>
+                        <td><input type="email" name="email" id="email" placeholder="Merci de renseigner une adresse valide" size="37" required/></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><input type="submit" value="Valider votre commande" class="validate" id="submit"><input type="reset" class="reset" value="Réinitialiser"> </td>
+                    </tr>
+                </table>
+            </form>
+          </div>
+      </div>    
+  </main>
 
-        <script src="./js/panier.js" defer></script>
+  <div class="bg-light">
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <ul class="list-inline text-center">
+              <li class="list-inline-item"><a href="#">À propos</a></li>
+              <li class="list-inline-item">&middot;</li>
+              <li class="list-inline-item"><a href="#">Mentions légales</a></li>
+              <li class="list-inline-item">&middot;</li>
+              <li class="list-inline-item"><a href="#">Conditions d'utilisations</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+  </div>
+
+    <script src="./js/panier.js" defer></script>
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-  </body>
+</body>
 </html>
