@@ -1,17 +1,20 @@
+// création class produits
 class Products{
   constructor(element){
       this.$el = element;
 
       this.display();
   }
-    
-  display(){    
 
+  // appel de la fonction display
+  display(){    
+      // recherche de l'API
       fetch('http://localhost:3000/api/cameras')
           .then(response => {return response.json()})
           .then(item =>  {
+              // Pour chaque réponse de l'API
               item.forEach(product => {
-
+              // intégration des produits dans le HTML
               let html = 
                   `<div class="card">    
                       <img src="${product.imageUrl}" class="card-img-top" alt="Images cameras">
@@ -28,7 +31,7 @@ class Products{
       })
   }
 }
-
+// intégration des produits dans l'id cameras
 const products = new Products(document.getElementById('cameras'));
 
   
