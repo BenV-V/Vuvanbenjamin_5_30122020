@@ -70,10 +70,35 @@ function display() {
         const form = document.querySelector(".contactform");
             form.addEventListener('submit', event => {
             event.preventDefault();
-            send();
+            send(event);
         });
         //fonction qui reprend les éléments du contact et du produit
-        function send() {
+        function send(event) {
+            let validPanier = document.getElementById('submit');
+            //Variable pour récupérer les données
+            let prenom = document.getElementById('firstName');
+            let nom = document.getElementById('lastName');
+            let adresse = document.getElementById('address');
+            let ville = document.getElementById('city');
+            //variable pour effectuer les tests
+            let validForm = /^[a-zA-ZéèîïÉÈÎÏ][a-zéèêàçîï]+([-'\s][a-zA-ZéèîïÉÈÎÏ][a-zéèêàçîï]+)?$/;
+            let validAdress = /^[A-Za-z0-9\s]{1,}/;
+            //vérification si les champs contiennent des caractères interdits
+            if (validForm.test(nom.value) == false){
+                event.preventDefault();
+                alert("votre nom n'est pas conforme")
+            } else if (validForm.test(prenom.value) == false){
+                event.preventDefault();
+                alert("votre prénom n'est pas conforme")
+            } else if (validAdress.test(adresse.value) == false){
+                event.preventDefault();
+                alert("votre adresse n'est pas conforme")
+            } else if (validAdress.test(ville.value) == false){
+                event.preventDefault();
+                alert("votre ville n'est pas conforme")
+            } else {
+                event.preventDefault();
+
             let products = []; 
             // Récupération des informations contenues dans les input
             let infoContact = document.getElementsByTagName("input");
@@ -85,6 +110,7 @@ function display() {
                 city : infoContact[3].value,
                 email : infoContact[4].value,
             } 
+
             fetch("http://localhost:3000/api/cameras/order", {
             // définition de la méthode utilisée par la requête
             method: "POST",
@@ -104,8 +130,10 @@ function display() {
                 localStorage.setItem('total', JSON.stringify(total));
                 window.location.href = "confirmation.html";
             })
+            //vérifie la validation du formulaire
+            validPanier.addEventListener('click', send)
         }
-    }
+    }}
     //Sinon, ajout de l'HTML relatif au panier vide 
     else {
         totalCart.insertAdjacentHTML("afterend",
@@ -120,4 +148,5 @@ function display() {
             }
             addDisplay(content);
     }
-}
+};
+
